@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://starenergiasolar.com.br/sitemap.xml

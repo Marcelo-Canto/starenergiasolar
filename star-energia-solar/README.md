@@ -1,19 +1,15 @@
-# STAR Energia Solar
+# STAR Energia Solar — site estático
 
-Site institucional da STAR Energia Solar (Uberlândia - MG). Next.js com exportação estática.
+Domínio: https://starenergiasolar.com.br
 
 ## Publicação
 
-- **GitHub Pages:** cada envio para a branch `main` monta e publica o site automaticamente (`.github/workflows/deploy.yml`). Em Settings > Pages, a opção Source precisa estar em **GitHub Actions**.
-- **Hospedagem comum (cPanel/FTP):** rode `GERAR-SITE.bat`, informe o domínio e envie o conteúdo da pasta `out` para a `public_html`.
+Este diretório é a exportação estática pronta para hospedagem.
 
-Enquanto o endereço for provisório (`github.io` ou `seudominio`), o site sai com `noindex` para não ser indexado com a URL errada.
+- `index.html` é a página inicial.
+- As páginas internas possuem `index.html` em seus diretórios.
+- `robots.txt` permite rastreamento e aponta para o sitemap.
+- `sitemap.xml` usa o domínio oficial.
+- `CNAME` está configurado para `starenergiasolar.com.br` (GitHub Pages).
 
-## Desenvolvimento
-
-```bash
-npm install
-npm run dev
-```
-
-Os dados da empresa ficam em `src/lib/site.ts`; as fotos, em `public/images` e `src/data/projects.ts`.
+Não é necessário enviar `node_modules`, `.next` ou código-fonte para publicar esta exportação estática.
