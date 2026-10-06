@@ -5,7 +5,7 @@ import { WhatsappLogo, WarningCircle, CheckCircle } from "@phosphor-icons/react"
 import { whatsappWithDetails } from "@/lib/whatsapp";
 import { cn } from "@/lib/cn";
 
-const types = ["Residencial", "Empresarial", "Usina solar", "Manutenção", "Outro"] as const;
+const types = ["Residencial", "Empresarial", "Assinatura", "Usina solar", "Manutenção", "Outro"] as const;
 
 type Field = "name" | "phone" | "type";
 type Errors = Partial<Record<Field, string>>;

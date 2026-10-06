@@ -23,7 +23,7 @@ export function AboutStatement() {
             <span className="text-blue">energia solar fotovoltaica</span> em Uberlândia e região.
           </p>
           <p className="mx-auto mt-8 max-w-2xl text-[17px] leading-relaxed text-muted">
-            O trabalho vai de sistemas para casas a usinas de grande porte. Entre os projetos da empresa está{" "}
+            São mais de 600 projetos instalados, de sistemas para casas a usinas de grande porte. Entre eles está{" "}
             {flagshipClaim.charAt(0).toLowerCase() + flagshipClaim.slice(1)}.
           </p>
         </Reveal>

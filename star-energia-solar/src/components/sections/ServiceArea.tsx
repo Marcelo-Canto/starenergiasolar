@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { WhatsappLogo, InstagramLogo, Phone } from "@phosphor-icons/react/ssr";
 import { Container } from "@/components/ui/Container";
@@ -5,6 +6,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { MapPreview } from "@/components/ui/MapPreview";
 import { EvaluationForm } from "@/components/forms/EvaluationForm";
 import { site } from "@/lib/site";
+import { facadePhoto } from "@/data/projects";
 import { WHATSAPP_URL } from "@/lib/whatsapp";
 import { type } from "@/lib/type";
 
@@ -65,6 +67,17 @@ export function ServiceArea() {
           </Reveal>
 
           <Reveal delay={80} className="mt-8">
+            <figure className="mb-5">
+              <Image
+                src={facadePhoto.src}
+                width={facadePhoto.width}
+                height={facadePhoto.height}
+                alt={facadePhoto.alt}
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="aspect-[2/1] w-full rounded-[20px] object-cover"
+              />
+              <figcaption className="mt-3 text-sm text-muted">{facadePhoto.caption}</figcaption>
+            </figure>
             <MapPreview />
           </Reveal>
         </div>

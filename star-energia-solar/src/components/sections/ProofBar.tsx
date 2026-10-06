@@ -1,12 +1,11 @@
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
-import { allServices } from "@/data/services";
 
 /** Destaques verificáveis: tempo de mercado, projeto de referência, portfólio de serviços e localização. */
 const items = [
   { value: "+7", label: "anos no mercado de energia solar" },
   { value: "Maior", label: "usina solar em telhado de Minas Gerais" },
-  { value: String(allServices.length), label: "soluções, do projeto ao financiamento" },
+  { value: "Assinatura", label: "energia solar com desconto, sem instalar placas" },
   { value: "Uberlândia", label: "sede no Santa Mônica, atendimento na região" },
 ];
 

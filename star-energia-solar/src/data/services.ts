@@ -1,5 +1,5 @@
 /**
- * Os 8 serviços do Perfil da Empresa no Google. Sem detalhes não confirmados
+ * Os 8 serviços do Perfil da Empresa no Google, mais a energia por assinatura informada pela STAR. Sem detalhes não confirmados
  * (condições de financiamento, marcas, prazos ou garantias).
  */
 export type Service = {
@@ -54,6 +54,11 @@ export const services = {
     name: "Venda de Painéis Solares",
     short: "Painéis solares",
     description: "Fornecimento de painéis solares para projetos fotovoltaicos.",
+  },
+  assinatura: {
+    name: "Energia Solar por Assinatura",
+    short: "Assinatura",
+    description: "Energia solar com 20% a 30% de desconto, sem instalar placas no imóvel.",
   },
   financiamento: {
     name: "Financiamento de Energia Solar",

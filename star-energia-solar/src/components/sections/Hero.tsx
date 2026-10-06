@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { MapPin } from "@phosphor-icons/react/ssr";
+import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink, WhatsAppButton } from "@/components/ui/Button";
 import { photos } from "@/data/projects";
@@ -32,8 +32,8 @@ export function Hero() {
             para gerar mais economia
           </h1>
           <p className={`${type.lead} mt-8 max-w-[33rem] text-muted`}>
-            Projetos, instalação e manutenção de sistemas fotovoltaicos para residências, empresas e usinas solares. Há mais de 7 anos
-            no mercado.
+            Mais de 600 projetos instalados em Uberlândia e região. Sistemas fotovoltaicos para casas, empresas e usinas, e energia
+            solar por assinatura.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <WhatsAppButton size="lg">Solicitar orçamento</WhatsAppButton>
@@ -41,10 +41,22 @@ export function Hero() {
               Conhecer nossos projetos
             </ButtonLink>
           </div>
-          <p className="mt-6 flex items-center gap-2 text-sm text-muted">
-            <MapPin size={18} weight="fill" className="text-orange" aria-hidden />
-            Atendimento em Uberlândia e região
-          </p>
+          <dl className="mt-10 grid max-w-[34rem] grid-cols-2 gap-x-5 border-t border-line pt-6">
+            <div>
+              <dt className="text-[28px] leading-none font-bold tracking-[-0.045em] whitespace-nowrap text-navy sm:text-[40px]">+600</dt>
+              <dd className="mt-2 text-sm leading-snug text-muted">projetos instalados em Uberlândia e região</dd>
+            </div>
+            <div className="border-l border-line pl-5 sm:pl-8">
+              <dt className="text-[28px] leading-none font-bold tracking-[-0.045em] whitespace-nowrap text-navy sm:text-[40px]">20 a 30%</dt>
+              <dd className="mt-2 text-sm leading-snug text-muted">
+                de desconto na{" "}
+                <Link href="/#assinatura" className="font-semibold text-navy underline decoration-solar decoration-2 underline-offset-4 hover:text-blue">
+                  energia por assinatura
+                </Link>
+                , sem instalar placas
+              </dd>
+            </div>
+          </dl>
         </div>
 
         <figure className="relative lg:col-span-6">

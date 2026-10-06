@@ -135,6 +135,15 @@ export const photos = {
   ),
 } satisfies Record<string, Photo>;
 
+/** Fachada da sede (Av. Belarmino Cotta Pacheco, 715). */
+export const facadePhoto: Photo = {
+  src: "/images/brand/fachada-star-energia-solar.webp",
+  width: 1448,
+  height: 660,
+  alt: "Fachada da STAR Energia Solar em Uberlândia, com letreiro azul da empresa sobre muro branco",
+  caption: "Sede da STAR Energia Solar no bairro Santa Mônica",
+};
+
 export type PhotoGroup = { id: string; title: string; description: string; photos: Photo[] };
 
 /** Organização da página /projetos. */

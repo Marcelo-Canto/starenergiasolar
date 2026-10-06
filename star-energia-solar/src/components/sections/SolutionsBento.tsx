@@ -67,7 +67,7 @@ export function SolutionsBento() {
             Soluções em energia solar para cada projeto
           </h2>
           <p className={`${type.body} mt-5 max-w-xl text-muted`}>
-            Da casa ao galpão industrial: projeto, instalação, manutenção e financiamento com a mesma equipe.
+            Da casa ao galpão industrial: projeto, instalação, manutenção, financiamento e energia por assinatura.
           </p>
         </Reveal>
 

@@ -20,7 +20,12 @@ export const homeFaq: FaqItem[] = [
   {
     question: "Quais serviços a STAR oferece?",
     answer:
-      "Projetos residenciais e empresariais, projeto e montagem de usinas solares e de sistemas de energia solar, instalação fotovoltaica, venda de painéis solares, limpeza e manutenção e financiamento de energia solar.",
+      "Projetos residenciais e empresariais, projeto e montagem de usinas solares e de sistemas de energia solar, instalação fotovoltaica, venda de painéis solares, limpeza e manutenção, financiamento e energia solar por assinatura.",
+  },
+  {
+    question: "O que é energia solar por assinatura?",
+    answer:
+      "É uma forma de usar energia solar sem instalar placas no seu imóvel. Você assina o serviço e recebe energia solar com 20% a 30% de desconto, sem obra e sem equipamentos no telhado. Fale com a STAR para saber como aderir.",
   },
   {
     question: "A STAR trabalha com financiamento de energia solar?",

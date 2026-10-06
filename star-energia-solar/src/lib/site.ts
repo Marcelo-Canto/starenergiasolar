@@ -56,4 +56,7 @@ export const site = {
  * Afirmação fornecida pela STAR sobre o projeto da foto aérea principal.
  * Mantida em um único lugar para facilitar ajuste caso a empresa queira citar a fonte.
  */
+/** Números informados pela STAR. */
+export const subscriptionDiscount = "20% a 30%";
+
 export const flagshipClaim = "A maior usina solar em telhado de Minas Gerais";

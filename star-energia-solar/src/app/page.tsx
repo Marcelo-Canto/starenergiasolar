@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
 import { ProofBar } from "@/components/sections/ProofBar";
 import { SolutionsBento } from "@/components/sections/SolutionsBento";
+import { SubscriptionBand } from "@/components/sections/SubscriptionBand";
 import { Process } from "@/components/sections/Process";
 import { ProjectsPreview } from "@/components/sections/ProjectsPreview";
 import { ResidentialSplit } from "@/components/sections/ResidentialSplit";
@@ -17,7 +18,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata: Metadata = pageMetadata({
   title: "Energia Solar em Uberlândia | STAR Energia Solar",
   description:
-    "Energia solar em Uberlândia com a STAR: projetos, instalação, usinas e manutenção de sistemas fotovoltaicos para casas e empresas. Há mais de 7 anos no mercado.",
+    "Energia solar em Uberlândia com a STAR: mais de 600 projetos instalados, usinas, manutenção e energia por assinatura. Há mais de 7 anos no mercado.",
   path: "/",
 });
 
@@ -31,6 +32,7 @@ export default function Home() {
       <Hero />
       <ProofBar />
       <SolutionsBento />
+      <SubscriptionBand />
       <Process />
       <ProjectsPreview />
       <ResidentialSplit />
