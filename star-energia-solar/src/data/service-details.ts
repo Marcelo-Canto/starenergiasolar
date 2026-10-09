@@ -1,4 +1,4 @@
-import { photos, type Photo } from "./projects";
+import { illustrativePlant, photos, type Photo } from "./projects";
 import { services, type Service } from "./services";
 import type { FaqItem } from "./faq";
 
@@ -31,7 +31,7 @@ export const serviceDetails: ServiceDetail[] = [
     h1: "Energia solar por assinatura em Uberlândia",
     intro: "Receba energia solar com 20% a 30% de desconto, sem instalar placas no seu imóvel e sem fazer obra.",
     cta: "Quero assinar",
-    photo: photos.usinaGalpao,
+    photo: illustrativePlant,
     highlight: { value: "20% a 30%", label: "de desconto na energia" },
     sections: [
       {

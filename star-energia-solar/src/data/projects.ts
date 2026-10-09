@@ -33,7 +33,7 @@ export const photos = {
     1280,
     960,
     "Galpão principal com o telhado inteiro coberto por módulos fotovoltaicos, visto de drone",
-    "Galpão principal da usina em telhado",
+    "Galpão principal da maior usina solar em telhado de Minas Gerais",
   ),
   usinaDetalhe: p(
     "galpao-industrial-telhado-detalhe",
@@ -134,6 +134,15 @@ export const photos = {
     "Conexões do inversor",
   ),
 } satisfies Record<string, Photo>;
+
+/** Imagem ilustrativa (não é projeto da STAR): usada onde o assunto é energia solar em geral. */
+export const illustrativePlant: Photo = {
+  src: "/images/brand/hero-poster.webp",
+  width: 1600,
+  height: 900,
+  alt: "Usina solar ao pôr do sol (imagem ilustrativa)",
+  caption: "Imagem ilustrativa",
+};
 
 /** Fachada da sede (Av. Belarmino Cotta Pacheco, 715). */
 export const facadePhoto: Photo = {

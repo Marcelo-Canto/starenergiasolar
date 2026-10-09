@@ -1,4 +1,4 @@
-import { photos, type Photo } from "./projects";
+import { illustrativePlant, photos, type Photo } from "./projects";
 
 /**
  * Artigos do blog. Para publicar um novo: adicione um item no início da lista.
@@ -25,7 +25,7 @@ export const posts: Post[] = [
       "Entenda o que é energia solar por assinatura, como ela chega ao seu imóvel sem instalar placas e em quais casos ela faz mais sentido do que um sistema próprio.",
     date: "2026-10-08",
     readingMinutes: 4,
-    cover: photos.usinaGalpao,
+    cover: illustrativePlant,
     related: { href: "/energia-solar-por-assinatura", label: "Energia solar por assinatura da STAR" },
     sections: [
       {

@@ -23,6 +23,7 @@
 
   --animate-hero-in: hero-in 900ms var(--ease-out-strong) both;
   --animate-draw: draw 700ms var(--ease-out-strong) 250ms both;
+  --animate-marquee: marquee 38s linear infinite;
 }
 
 @keyframes hero-in {
@@ -33,6 +34,12 @@
   to {
     clip-path: inset(0 0 0 0 round 20px);
     transform: scale(1);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
