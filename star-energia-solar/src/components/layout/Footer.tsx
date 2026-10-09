@@ -10,6 +10,7 @@ const companyNav = [
   { href: "/", label: "Início" },
   { href: "/#solucoes", label: "Soluções" },
   { href: "/projetos", label: "Projetos" },
+  { href: "/blog", label: "Blog de energia solar" },
   { href: "/#sobre", label: "Sobre a STAR" },
   { href: "/#faq", label: "Perguntas frequentes" },
   { href: "/#contato", label: "Contato" },

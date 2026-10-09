@@ -1,13 +1,11 @@
 /**
- * Os 8 serviços do Perfil da Empresa no Google, mais a energia por assinatura informada pela STAR. Sem detalhes não confirmados
- * (condições de financiamento, marcas, prazos ou garantias).
+ * Serviços confirmados da STAR. Detalhes de condições comerciais devem ser confirmados diretamente com a empresa.
  */
 export type Service = {
   name: string;
   short: string;
   description: string;
   href?: string;
-  /** Rótulo curto para links internos (rodapé, cards). */
   label?: string;
 };
 
@@ -43,7 +41,9 @@ export const services = {
   instalacao: {
     name: "Instalação de Energia Solar Fotovoltaica",
     short: "Instalação",
-    description: "Execução da instalação do sistema conforme o projeto.",
+    description: "Instalação de sistemas fotovoltaicos conforme o projeto e as características do imóvel.",
+    href: "/instalacao-energia-solar",
+    label: "Instalação de energia solar",
   },
   sistemas: {
     name: "Projeto e Montagem de Sistemas de Energia Solar",
@@ -51,23 +51,38 @@ export const services = {
     description: "Dimensionamento e montagem do sistema de geração.",
   },
   paineis: {
-    name: "Venda de Painéis Solares",
+    name: "Painéis Solares",
     short: "Painéis solares",
-    description: "Fornecimento de painéis solares para projetos fotovoltaicos.",
+    description: "Orientação sobre módulos fotovoltaicos e sua compatibilidade com cada sistema.",
+    href: "/paineis-solares",
+    label: "Painéis solares",
   },
   assinatura: {
     name: "Energia Solar por Assinatura",
     short: "Assinatura",
-    description: "Energia solar com 20% a 30% de desconto, sem instalar placas no imóvel.",
+    description: "Consulte as condições de energia solar por assinatura sem instalar placas no imóvel.",
+    href: "/energia-solar-por-assinatura",
+    label: "Energia solar por assinatura",
   },
   financiamento: {
     name: "Financiamento de Energia Solar",
     short: "Financiamento",
     description: "Consulte a STAR sobre as opções de financiamento disponíveis.",
+    href: "/financiamento-energia-solar",
+    label: "Financiamento de energia solar",
   },
 } satisfies Record<string, Service>;
 
 export const allServices: Service[] = Object.values(services);
 
-/** Páginas de serviço (links internos, rodapé e sitemap). */
-export const servicePages = [services.residencial, services.empresarial, services.usina, services.manutencao];
+/** Páginas de serviço com conteúdo próprio e links internos. */
+export const servicePages = [
+  services.residencial,
+  services.empresarial,
+  services.usina,
+  services.manutencao,
+  services.instalacao,
+  services.paineis,
+  services.assinatura,
+  services.financiamento,
+];

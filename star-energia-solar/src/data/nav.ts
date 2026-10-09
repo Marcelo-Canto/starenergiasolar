@@ -4,6 +4,7 @@ export const mainNav = [
   { href: "/usina-solar", label: "Usina solar" },
   { href: "/manutencao-energia-solar", label: "Manutenção" },
   { href: "/projetos", label: "Projetos" },
+  { href: "/blog", label: "Blog" },
   { href: "/#assinatura", label: "Assinatura" },
   { href: "/#contato", label: "Contato" },
 ] as const;
