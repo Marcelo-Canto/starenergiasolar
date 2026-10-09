@@ -32,15 +32,15 @@ for (const file of walk(SRC)) {
   const srcTime = fs.statSync(file).mtimeMs;
 
   for (const width of WIDTHS) {
-    const target = path.join(OUT, `${base}-${width}${ext}`);
+    const target = path.join(OUT, `${base}-${width}.webp`);
     if (fs.existsSync(target) && fs.statSync(target).mtimeMs >= srcTime) {
       skipped++;
       continue;
     }
     fs.mkdirSync(path.dirname(target), { recursive: true });
     const pipeline = sharp(input).resize({ width, withoutEnlargement: true });
-    const output =
-      ext === ".png" ? await pipeline.png({ compressionLevel: 9 }).toBuffer() : await pipeline.webp({ quality: 78 }).toBuffer();
+    // Tudo sai em WebP (com transparência quando a origem é PNG, como a logo): arquivos bem menores
+    const output = await pipeline.webp({ quality: ext === ".png" ? 90 : 78 }).toBuffer();
     fs.writeFileSync(target, output);
     created++;
   }
