@@ -30,7 +30,7 @@ function ServiceTile({ tile, delay }: { tile: Tile; delay: number }) {
   return (
     <Reveal delay={delay} className={cn("min-w-0", tile.className)}>
       <Link
-        href={service.href!}
+        href={service.href}
         className="group relative flex aspect-[4/3] h-full flex-col justify-end overflow-hidden rounded-[20px] bg-navy text-white sm:aspect-[16/10] lg:aspect-auto"
       >
         <Image
@@ -81,12 +81,16 @@ export function SolutionsBento() {
           <h3 className="text-sm font-semibold text-navy">Também na STAR</h3>
           <ul className="mt-5 grid gap-x-8 gap-y-6 border-t border-line pt-6 sm:grid-cols-2 lg:grid-cols-4">
             {more.map(({ service, icon: Icon }) => (
-              <li key={service.name} className="flex gap-3.5">
-                <Icon size={24} weight="duotone" className="mt-0.5 shrink-0 text-blue" aria-hidden />
-                <div>
-                  <p className="font-semibold tracking-[-0.01em] text-navy">{service.name}</p>
-                  <p className="mt-1 text-[14.5px] leading-relaxed text-muted">{service.description}</p>
-                </div>
+              <li key={service.name}>
+                <Link href={service.href} className="group flex gap-3.5">
+                  <Icon size={24} weight="duotone" className="mt-0.5 shrink-0 text-blue" aria-hidden />
+                  <span>
+                    <span className="block font-semibold tracking-[-0.01em] text-navy underline decoration-transparent decoration-2 underline-offset-4 transition-colors duration-200 group-hover:decoration-solar">
+                      {service.name}
+                    </span>
+                    <span className="mt-1 block text-[14.5px] leading-relaxed text-muted">{service.description}</span>
+                  </span>
+                </Link>
               </li>
             ))}
           </ul>

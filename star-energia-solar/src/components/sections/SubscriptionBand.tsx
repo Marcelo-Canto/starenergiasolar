@@ -1,6 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
-import { WhatsAppButton } from "@/components/ui/Button";
+import { ButtonLink, WhatsAppButton } from "@/components/ui/Button";
 import { CheckList } from "@/components/ui/CheckList";
 import { subscriptionDiscount } from "@/lib/site";
 import { type } from "@/lib/type";
@@ -19,9 +19,12 @@ export function SubscriptionBand() {
             Quer usar energia solar sem fazer obra nem colocar equipamentos no telhado? Na assinatura da STAR, você recebe energia
             solar com {subscriptionDiscount} de desconto, sem instalar placas no seu imóvel.
           </p>
-          <WhatsAppButton variant="navy" className="mt-8">
-            Quero saber da assinatura
-          </WhatsAppButton>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <WhatsAppButton variant="navy">Quero saber da assinatura</WhatsAppButton>
+            <ButtonLink href="/energia-solar-por-assinatura" variant="outline" icon="arrow">
+              Como funciona
+            </ButtonLink>
+          </div>
         </Reveal>
         <Reveal delay={80} className="lg:col-span-5">
           <div className="rounded-[20px] bg-white p-7 ring-1 ring-line sm:p-9">

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SITE_URL, site } from "./site";
 import { allServices } from "@/data/services";
 import { photos, type Photo } from "@/data/projects";
+import type { Post } from "@/data/posts";
 
 type PageSeo = {
   title: string;
@@ -111,5 +112,21 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
       name: item.name,
       item: pageUrl(item.path),
     })),
+  };
+}
+
+export function blogPostingSchema(post: Post) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.description,
+    image: assetUrl(post.cover.src),
+    datePublished: post.date,
+    dateModified: post.date,
+    inLanguage: "pt-BR",
+    mainEntityOfPage: pageUrl(`/blog/${post.slug}`),
+    author: { "@id": businessId },
+    publisher: { "@id": businessId },
   };
 }

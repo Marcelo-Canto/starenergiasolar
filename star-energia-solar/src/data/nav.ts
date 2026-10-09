@@ -1,10 +1,7 @@
+/** Links do menu principal, além do grupo "Serviços" (que vem de src/data/services.ts). */
 export const mainNav = [
-  { href: "/energia-solar-residencial", label: "Residencial" },
-  { href: "/energia-solar-empresarial", label: "Empresarial" },
-  { href: "/usina-solar", label: "Usina solar" },
-  { href: "/manutencao-energia-solar", label: "Manutenção" },
   { href: "/projetos", label: "Projetos" },
   { href: "/blog", label: "Blog" },
-  { href: "/#assinatura", label: "Assinatura" },
+  { href: "/#sobre", label: "Sobre" },
   { href: "/#contato", label: "Contato" },
 ] as const;

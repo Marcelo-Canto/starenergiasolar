@@ -4,23 +4,33 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, m } from "motion/react";
-import { List, X, InstagramLogo, MapPin, Phone } from "@phosphor-icons/react";
+import { List, X, InstagramLogo, MapPin, Phone, CaretDown } from "@phosphor-icons/react";
 import { Logo } from "@/components/ui/Logo";
 import { Container } from "@/components/ui/Container";
 import { WhatsAppButton } from "@/components/ui/Button";
 import { mainNav } from "@/data/nav";
+import { servicePages } from "@/data/services";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/cn";
 
 const ease = [0.23, 1, 0.32, 1] as const;
 
+const linkCls =
+  "relative inline-flex min-h-11 items-center gap-1.5 rounded-full px-3.5 text-[14.5px] font-medium transition-colors duration-200 after:absolute after:inset-x-3.5 after:bottom-2 after:h-[2px] after:origin-left after:rounded-full after:bg-solar after:transition-transform after:duration-300 after:ease-(--ease-out-strong)";
+const linkIdle = "text-ink/75 after:scale-x-0 hover:text-navy hover:after:scale-x-100";
+const linkActive = "text-navy after:scale-x-100";
+
 export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
+  const servicesRef = useRef<HTMLLIElement>(null);
+  const servicesBtnRef = useRef<HTMLButtonElement>(null);
+  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Estado "rolado" por IntersectionObserver: sem listener de scroll
   useEffect(() => {
@@ -30,6 +40,26 @@ export function Header() {
     io.observe(el);
     return () => io.disconnect();
   }, []);
+
+  // Dropdown de serviços: fecha com Esc e com clique fora
+  useEffect(() => {
+    if (!servicesOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setServicesOpen(false);
+        servicesBtnRef.current?.focus();
+      }
+    };
+    const onPointer = (e: PointerEvent) => {
+      if (!servicesRef.current?.contains(e.target as Node)) setServicesOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("pointerdown", onPointer);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("pointerdown", onPointer);
+    };
+  }, [servicesOpen]);
 
   // Menu móvel: trava o scroll, fecha com Esc, mantém o foco dentro do painel
   useEffect(() => {
@@ -67,7 +97,15 @@ export function Header() {
 
   // Com trailingSlash o pathname vem como "/usina-solar/": normaliza para comparar com os links
   const current = pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
-  const isActive = (href: string) => !href.includes("#") && current === href;
+  const isActive = (href: string) => !href.includes("#") && (current === href || current.startsWith(`${href}/`));
+  const inServices = servicePages.some((s) => s.href === current);
+
+  // Abre no hover só em dispositivos com mouse; o clique funciona em qualquer um
+  const hover = (value: boolean) => {
+    if (!window.matchMedia("(hover: hover)").matches) return;
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    hoverTimer.current = setTimeout(() => setServicesOpen(value), value ? 60 : 160);
+  };
 
   return (
     <>
@@ -90,19 +128,57 @@ export function Header() {
 
           <nav aria-label="Navegação principal" className="hidden xl:block">
             <ul className="flex items-center gap-0.5">
+              <li ref={servicesRef} className="relative" onPointerEnter={() => hover(true)} onPointerLeave={() => hover(false)}>
+                <button
+                  ref={servicesBtnRef}
+                  type="button"
+                  aria-expanded={servicesOpen}
+                  aria-controls="menu-servicos"
+                  onClick={() => setServicesOpen((v) => !v)}
+                  className={cn(linkCls, "cursor-pointer", inServices || servicesOpen ? linkActive : linkIdle)}
+                >
+                  Serviços
+                  <CaretDown
+                    size={13}
+                    weight="bold"
+                    aria-hidden
+                    className={cn("transition-transform duration-200 ease-(--ease-out-strong)", servicesOpen && "rotate-180")}
+                  />
+                </button>
+                <AnimatePresence>
+                  {servicesOpen && (
+                    <m.div
+                      id="menu-servicos"
+                      initial={{ opacity: 0, y: -6, scale: 0.98 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -4, scale: 0.98 }}
+                      transition={{ duration: 0.16, ease }}
+                      className="absolute top-full left-0 w-[640px] origin-top-left pt-2"
+                    >
+                      <ul className="grid grid-cols-2 gap-1 rounded-[20px] bg-white p-3 shadow-[0_24px_60px_-24px_rgb(6_43_99/0.35)] ring-1 ring-line">
+                        {servicePages.map((s) => (
+                          <li key={s.href}>
+                            <Link
+                              href={s.href}
+                              onClick={() => setServicesOpen(false)}
+                              aria-current={current === s.href ? "page" : undefined}
+                              className="block rounded-[12px] px-4 py-3 transition-colors duration-150 hover:bg-canvas aria-[current=page]:bg-canvas"
+                            >
+                              <span className="block text-[15px] font-semibold text-navy">{s.label}</span>
+                              <span className="mt-0.5 block text-[13px] leading-snug text-muted">{s.description}</span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </m.div>
+                  )}
+                </AnimatePresence>
+              </li>
               {mainNav.map((item) => {
                 const active = isActive(item.href);
                 return (
                   <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      aria-current={active ? "page" : undefined}
-                      className={cn(
-                        "relative inline-flex min-h-11 items-center rounded-full px-3.5 text-[14.5px] font-medium transition-colors duration-200",
-                        "after:absolute after:inset-x-3.5 after:bottom-2 after:h-[2px] after:origin-left after:rounded-full after:bg-solar after:transition-transform after:duration-300 after:ease-(--ease-out-strong)",
-                        active ? "text-navy after:scale-x-100" : "text-ink/70 after:scale-x-0 hover:text-navy hover:after:scale-x-100",
-                      )}
-                    >
+                    <Link href={item.href} aria-current={active ? "page" : undefined} className={cn(linkCls, active ? linkActive : linkIdle)}>
                       {item.label}
                     </Link>
                   </li>
@@ -155,34 +231,44 @@ export function Header() {
               className="fixed inset-x-0 top-0 h-dvh overflow-y-auto bg-white pt-[77px] lg:pt-[89px] xl:hidden"
             >
               <Container className="flex min-h-full flex-col pb-[max(2rem,env(safe-area-inset-bottom))]">
-                <nav aria-label="Navegação do menu" className="border-t border-line pt-2">
-                  <ul>
-                    {mainNav.map((item, i) => (
+                <nav aria-label="Navegação do menu" className="border-t border-line pt-5">
+                  <p className="text-[13px] font-semibold text-muted">Serviços</p>
+                  <ul className="mt-2 grid sm:grid-cols-2 sm:gap-x-8">
+                    {servicePages.map((s, i) => (
                       <m.li
-                        key={item.href}
-                        initial={{ opacity: 0, y: 10 }}
+                        key={s.href}
+                        initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.32, ease, delay: 0.05 + i * 0.03 }}
+                        transition={{ duration: 0.3, ease, delay: 0.04 + i * 0.02 }}
                         className="border-b border-line"
                       >
                         <Link
-                          href={item.href}
+                          href={s.href}
                           onClick={() => setOpen(false)}
-                          aria-current={isActive(item.href) ? "page" : undefined}
-                          className="flex min-h-14 items-center justify-between text-[24px] font-semibold tracking-[-0.03em] text-navy active:text-blue aria-[current=page]:text-blue"
+                          aria-current={current === s.href ? "page" : undefined}
+                          className="flex min-h-12 items-center text-[17px] font-semibold tracking-[-0.015em] text-navy active:text-blue aria-[current=page]:text-blue"
                         >
-                          {item.label}
+                          {s.label}
                         </Link>
                       </m.li>
                     ))}
                   </ul>
+                  <ul className="mt-6 grid grid-cols-2 gap-x-8">
+                    {mainNav.map((item) => (
+                      <li key={item.href} className="border-b border-line">
+                        <Link
+                          href={item.href}
+                          onClick={() => setOpen(false)}
+                          aria-current={isActive(item.href) ? "page" : undefined}
+                          className="flex min-h-12 items-center text-[17px] font-semibold tracking-[-0.015em] text-navy active:text-blue aria-[current=page]:text-blue"
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 </nav>
-                <m.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3, delay: 0.25 }}
-                  className="mt-auto space-y-5 pt-10"
-                >
+                <div className="mt-auto space-y-5 pt-8">
                   <WhatsAppButton size="lg" className="w-full">
                     Solicitar orçamento
                   </WhatsAppButton>
@@ -196,11 +282,7 @@ export function Header() {
                       </span>
                     </p>
                     <div className="flex gap-2">
-                      <a
-                        href={site.phone.tel}
-                        aria-label={`Ligar para ${site.phone.display}`}
-                        className="grid size-11 place-items-center rounded-full border border-line text-navy"
-                      >
+                      <a href={site.phone.tel} aria-label={`Ligar para ${site.phone.display}`} className="grid size-11 place-items-center rounded-full border border-line text-navy">
                         <Phone size={20} aria-hidden />
                       </a>
                       <a
@@ -214,7 +296,7 @@ export function Header() {
                       </a>
                     </div>
                   </div>
-                </m.div>
+                </div>
               </Container>
             </m.div>
           )}

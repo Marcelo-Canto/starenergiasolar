@@ -3,6 +3,7 @@ import { Hero } from "@/components/sections/Hero";
 import { ProofBar } from "@/components/sections/ProofBar";
 import { SolutionsBento } from "@/components/sections/SolutionsBento";
 import { SubscriptionBand } from "@/components/sections/SubscriptionBand";
+import { FlagshipProject } from "@/components/sections/FlagshipProject";
 import { Process } from "@/components/sections/Process";
 import { ProjectsPreview } from "@/components/sections/ProjectsPreview";
 import { ResidentialSplit } from "@/components/sections/ResidentialSplit";
@@ -33,6 +34,7 @@ export default function Home() {
       <ProofBar />
       <SolutionsBento />
       <SubscriptionBand />
+      <FlagshipProject />
       <Process />
       <ProjectsPreview />
       <ResidentialSplit />

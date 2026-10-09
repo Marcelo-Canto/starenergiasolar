@@ -1,12 +1,15 @@
 /**
- * Serviços confirmados da STAR. Detalhes de condições comerciais devem ser confirmados diretamente com a empresa.
+ * Serviços da STAR: os 8 do Perfil da Empresa no Google, mais a energia por assinatura.
+ * Cada serviço tem a sua própria página. Sem detalhes não confirmados
+ * (condições de financiamento, marcas, prazos ou garantias).
  */
 export type Service = {
   name: string;
   short: string;
   description: string;
-  href?: string;
-  label?: string;
+  href: string;
+  /** Rótulo curto para menu, rodapé e cards. */
+  label: string;
 };
 
 export const services = {
@@ -24,12 +27,33 @@ export const services = {
     href: "/energia-solar-empresarial",
     label: "Energia solar empresarial",
   },
+  assinatura: {
+    name: "Energia Solar por Assinatura",
+    short: "Assinatura",
+    description: "Energia solar com 20% a 30% de desconto, sem instalar placas no imóvel.",
+    href: "/energia-solar-por-assinatura",
+    label: "Energia solar por assinatura",
+  },
   usina: {
     name: "Projeto e Montagem de Usina Solar",
     short: "Usina solar",
     description: "Planejamento e montagem de usinas fotovoltaicas de grande porte.",
     href: "/usina-solar",
     label: "Usina solar",
+  },
+  instalacao: {
+    name: "Instalação de Energia Solar Fotovoltaica",
+    short: "Instalação",
+    description: "Execução da instalação do sistema conforme o projeto.",
+    href: "/instalacao-de-energia-solar",
+    label: "Instalação de energia solar",
+  },
+  sistemas: {
+    name: "Projeto e Montagem de Sistemas de Energia Solar",
+    short: "Projeto e montagem",
+    description: "Dimensionamento e montagem do sistema de geração.",
+    href: "/projeto-de-energia-solar",
+    label: "Projeto de energia solar",
   },
   manutencao: {
     name: "Limpeza e Manutenção de Energia Solar",
@@ -38,51 +62,23 @@ export const services = {
     href: "/manutencao-energia-solar",
     label: "Limpeza e manutenção",
   },
-  instalacao: {
-    name: "Instalação de Energia Solar Fotovoltaica",
-    short: "Instalação",
-    description: "Instalação de sistemas fotovoltaicos conforme o projeto e as características do imóvel.",
-    href: "/instalacao-energia-solar",
-    label: "Instalação de energia solar",
-  },
-  sistemas: {
-    name: "Projeto e Montagem de Sistemas de Energia Solar",
-    short: "Projeto e montagem",
-    description: "Dimensionamento e montagem do sistema de geração.",
-  },
   paineis: {
-    name: "Painéis Solares",
+    name: "Venda de Painéis Solares",
     short: "Painéis solares",
-    description: "Orientação sobre módulos fotovoltaicos e sua compatibilidade com cada sistema.",
-    href: "/paineis-solares",
-    label: "Painéis solares",
-  },
-  assinatura: {
-    name: "Energia Solar por Assinatura",
-    short: "Assinatura",
-    description: "Consulte as condições de energia solar por assinatura sem instalar placas no imóvel.",
-    href: "/energia-solar-por-assinatura",
-    label: "Energia solar por assinatura",
+    description: "Fornecimento de painéis solares para projetos fotovoltaicos.",
+    href: "/venda-de-paineis-solares",
+    label: "Venda de painéis solares",
   },
   financiamento: {
     name: "Financiamento de Energia Solar",
     short: "Financiamento",
     description: "Consulte a STAR sobre as opções de financiamento disponíveis.",
-    href: "/financiamento-energia-solar",
+    href: "/financiamento-de-energia-solar",
     label: "Financiamento de energia solar",
   },
 } satisfies Record<string, Service>;
 
 export const allServices: Service[] = Object.values(services);
 
-/** Páginas de serviço com conteúdo próprio e links internos. */
-export const servicePages = [
-  services.residencial,
-  services.empresarial,
-  services.usina,
-  services.manutencao,
-  services.instalacao,
-  services.paineis,
-  services.assinatura,
-  services.financiamento,
-];
+/** Todas as páginas de serviço (menu, rodapé, links internos e sitemap). */
+export const servicePages = allServices;

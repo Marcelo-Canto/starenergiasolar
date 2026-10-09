@@ -6,6 +6,7 @@ import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 import { MotionProvider } from "@/components/ui/MotionProvider";
 import { RevealObserver } from "@/components/ui/RevealObserver";
 import { JsonLd } from "@/components/ui/JsonLd";
+import { Analytics } from "@/components/ui/Analytics";
 import { IS_PLACEHOLDER_DOMAIN, SITE_URL, site } from "@/lib/site";
 import { localBusinessSchema, websiteSchema } from "@/lib/seo";
 import "./globals.css";
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <WhatsAppFloat />
         </MotionProvider>
         <RevealObserver />
+        <Analytics />
       </body>
     </html>
   );
