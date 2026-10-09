@@ -1,52 +1,53 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink, WhatsAppButton } from "@/components/ui/Button";
 import { HeroVideo } from "./HeroVideo";
 import { type } from "@/lib/type";
 
+const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const poster = (width: number) => `${base}/_img/images/brand/hero-poster-${width}.webp`;
+const posterSrcSet = `${poster(1080)} 1080w, ${poster(1600)} 1600w`;
+/** Pixel transparente: o que o celular "carrega" no lugar da imagem de fundo. */
+const EMPTY = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+
 /**
- * Hero em largura total: vídeo ilustrativo ao fundo, com um véu branco que cobre o lado do texto
- * (garante leitura) e deixa a imagem aparecer à direita. No celular o véu cobre a tela toda.
+ * Hero em largura total. No desktop: vídeo ilustrativo ao fundo, com um véu branco do lado do texto.
+ * No celular não há imagem nem vídeo de fundo (ficariam escondidos atrás do texto e custariam vários MB):
+ * o conteúdo principal vira o próprio título, que aparece imediatamente.
  */
 export function Hero() {
   return (
-    <section id="inicio" aria-labelledby="hero-title" className="relative isolate -mt-[77px] overflow-hidden pt-[77px] lg:-mt-[89px] lg:pt-[89px]">
-      <div className="absolute inset-0 -z-20" aria-hidden>
-        <Image
-          src="/images/brand/hero-poster.webp"
-          alt=""
-          fill
-          preload
-          sizes="100vw"
-          className="object-cover"
-        />
+    <section
+      id="inicio"
+      aria-labelledby="hero-title"
+      className="relative isolate -mt-[77px] overflow-hidden bg-canvas pt-[77px] lg:-mt-[89px] lg:bg-white lg:pt-[89px]"
+    >
+      {/* A imagem de fundo só é pedida em telas grandes (preload e <source> com media query) */}
+      <link rel="preload" as="image" media="(min-width: 1024px)" imageSrcSet={posterSrcSet} imageSizes="100vw" fetchPriority="high" />
+      <div className="absolute inset-0 -z-20 hidden lg:block" aria-hidden>
+        <picture>
+          <source media="(min-width: 1024px)" srcSet={posterSrcSet} sizes="100vw" />
+          <img src={EMPTY} alt="" decoding="async" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
+        </picture>
         <HeroVideo />
       </div>
       <div
-        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgb(255_255_255/0.93)_0%,rgb(255_255_255/0.88)_100%)] lg:bg-[linear-gradient(90deg,rgb(255_255_255/0.97)_0%,rgb(255_255_255/0.92)_36%,rgb(255_255_255/0.45)_64%,rgb(255_255_255/0)_100%)]"
+        className="absolute inset-0 -z-10 hidden bg-[linear-gradient(90deg,rgb(255_255_255/0.97)_0%,rgb(255_255_255/0.92)_36%,rgb(255_255_255/0.45)_64%,rgb(255_255_255/0)_100%)] lg:block"
         aria-hidden
       />
       {/* Faixa clara no topo para o menu continuar legível sobre o vídeo */}
-      <div className="absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-white/90 to-transparent" aria-hidden />
+      <div className="absolute inset-x-0 top-0 -z-10 hidden h-40 bg-gradient-to-b from-white/90 to-transparent lg:block" aria-hidden />
+      {/* Celular: malha discreta no lugar da imagem */}
+      <div className="pv-grid absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,black,transparent_85%)] lg:hidden" aria-hidden />
 
-      <Container className="flex min-h-[620px] items-center pt-8 pb-16 sm:pt-12 lg:min-h-[720px] lg:pb-24">
+      <Container className="flex items-center pt-8 pb-14 sm:pt-12 lg:min-h-[720px] lg:pb-24">
         <div className="max-w-[44rem]">
           <h1 id="hero-title" className="text-[40px] leading-[1.0] font-bold tracking-[-0.045em] text-navy sm:text-[56px] lg:text-[68px] xl:text-[76px]">
             Energia solar em{" "}
             <span className="relative inline-block whitespace-nowrap">
               Uberlândia
               <svg viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden className="absolute -bottom-1.5 left-0 h-2.5 w-full text-solar sm:-bottom-2">
-                <path
-                  d="M2 9 C 80 2, 220 2, 298 7"
-                  pathLength={1}
-                  strokeDasharray="1"
-                  className="animate-draw"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                  strokeLinecap="round"
-                  fill="none"
-                />
+                <path d="M2 9 C 80 2, 220 2, 298 7" stroke="currentColor" strokeWidth="4" strokeLinecap="round" fill="none" />
               </svg>
             </span>{" "}
             para gerar mais economia

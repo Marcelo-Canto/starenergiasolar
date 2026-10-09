@@ -7,7 +7,7 @@ const SRC = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/videos/hero-energia-sola
 /**
  * Vídeo de fundo do hero (imagem ilustrativa, em loop e sem som).
  * Só começa a baixar depois que a página carregou, para não atrasar o conteúdo principal:
- * até lá aparece a imagem estática (poster). Não toca com "reduzir movimento" nem com economia de dados.
+ * até lá aparece a imagem estática (poster). Não toca no celular, com "reduzir movimento" nem com economia de dados.
  */
 export function HeroVideo() {
   const ref = useRef<HTMLVideoElement>(null);
@@ -18,7 +18,8 @@ export function HeroVideo() {
     if (!video) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
-    if (reduced || saveData) return;
+    const large = window.matchMedia("(min-width: 1024px)").matches;
+    if (reduced || saveData || !large) return;
 
     const start = () => {
       video.src = SRC;

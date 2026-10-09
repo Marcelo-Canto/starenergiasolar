@@ -17,6 +17,7 @@ const ease = [0.23, 1, 0.32, 1] as const;
 
 const linkCls =
   "relative inline-flex min-h-11 items-center gap-1.5 rounded-full px-3.5 text-[14.5px] font-medium transition-colors duration-200 after:absolute after:inset-x-3.5 after:bottom-2 after:h-[2px] after:origin-left after:rounded-full after:bg-solar after:transition-transform after:duration-300 after:ease-(--ease-out-strong)";
+const mobileLinkCls = "flex min-h-[60px] items-center text-[24px] font-semibold tracking-[-0.03em] text-navy active:text-blue";
 const linkIdle = "text-ink/75 after:scale-x-0 hover:text-navy hover:after:scale-x-100";
 const linkActive = "text-navy after:scale-x-100";
 
@@ -25,6 +26,7 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServices, setMobileServices] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
@@ -231,40 +233,64 @@ export function Header() {
               className="fixed inset-x-0 top-0 h-dvh overflow-y-auto bg-white pt-[77px] lg:pt-[89px] xl:hidden"
             >
               <Container className="flex min-h-full flex-col pb-[max(2rem,env(safe-area-inset-bottom))]">
-                <nav aria-label="Navegação do menu" className="border-t border-line pt-5">
-                  <p className="text-[13px] font-semibold text-muted">Serviços</p>
-                  <ul className="mt-2 grid sm:grid-cols-2 sm:gap-x-8">
-                    {servicePages.map((s, i) => (
+                <nav aria-label="Navegação do menu" className="border-t border-line">
+                  <ul>
+                    <m.li initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.32, ease, delay: 0.05 }} className="border-b border-line">
+                      <button
+                        type="button"
+                        aria-expanded={mobileServices}
+                        aria-controls="menu-movel-servicos"
+                        onClick={() => setMobileServices((v) => !v)}
+                        className={cn(mobileLinkCls, "w-full cursor-pointer justify-between", inServices && "text-blue")}
+                      >
+                        Serviços
+                        <span className={cn("grid size-9 place-items-center rounded-full border border-line transition-transform duration-250 ease-(--ease-out-strong)", mobileServices && "rotate-180")}>
+                          <CaretDown size={16} weight="bold" aria-hidden />
+                        </span>
+                      </button>
+                      <div
+                        id="menu-movel-servicos"
+                        inert={!mobileServices}
+                        className={cn(
+                          "grid transition-[grid-template-rows,opacity] duration-300 ease-(--ease-out-strong)",
+                          mobileServices ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+                        )}
+                      >
+                        <ul className="overflow-hidden">
+                          {servicePages.map((s) => (
+                            <li key={s.href}>
+                              <Link
+                                href={s.href}
+                                onClick={() => setOpen(false)}
+                                aria-current={current === s.href ? "page" : undefined}
+                                className="flex min-h-11 items-center gap-3 text-[16px] font-medium text-ink/80 active:text-blue aria-[current=page]:font-semibold aria-[current=page]:text-blue"
+                              >
+                                <span className="h-px w-4 bg-solar" aria-hidden />
+                                {s.label}
+                              </Link>
+                            </li>
+                          ))}
+                          <li className="h-3" aria-hidden />
+                        </ul>
+                      </div>
+                    </m.li>
+                    {mainNav.map((item, i) => (
                       <m.li
-                        key={s.href}
-                        initial={{ opacity: 0, y: 8 }}
+                        key={item.href}
+                        initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, ease, delay: 0.04 + i * 0.02 }}
+                        transition={{ duration: 0.32, ease, delay: 0.09 + i * 0.04 }}
                         className="border-b border-line"
                       >
-                        <Link
-                          href={s.href}
-                          onClick={() => setOpen(false)}
-                          aria-current={current === s.href ? "page" : undefined}
-                          className="flex min-h-12 items-center text-[17px] font-semibold tracking-[-0.015em] text-navy active:text-blue aria-[current=page]:text-blue"
-                        >
-                          {s.label}
-                        </Link>
-                      </m.li>
-                    ))}
-                  </ul>
-                  <ul className="mt-6 grid grid-cols-2 gap-x-8">
-                    {mainNav.map((item) => (
-                      <li key={item.href} className="border-b border-line">
                         <Link
                           href={item.href}
                           onClick={() => setOpen(false)}
                           aria-current={isActive(item.href) ? "page" : undefined}
-                          className="flex min-h-12 items-center text-[17px] font-semibold tracking-[-0.015em] text-navy active:text-blue aria-[current=page]:text-blue"
+                          className={cn(mobileLinkCls, "aria-[current=page]:text-blue")}
                         >
                           {item.label}
                         </Link>
-                      </li>
+                      </m.li>
                     ))}
                   </ul>
                 </nav>
