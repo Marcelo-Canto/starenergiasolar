@@ -35,7 +35,7 @@ export const homeFaq: FaqItem[] = [
   {
     question: "Como solicitar um orçamento?",
     answer:
-      "Chame a STAR no WhatsApp pelo (34) 98849-3077 ou preencha o formulário de avaliação no fim desta página. A equipe vai entender o perfil do seu imóvel e orientar os próximos passos.",
+      "Chame a STAR no WhatsApp pelo (34) 99724-0197 ou preencha o formulário de avaliação no fim desta página. A equipe vai entender o perfil do seu imóvel e orientar os próximos passos.",
   },
 ];
 

@@ -27,9 +27,9 @@ export const site = {
   shortName: "STAR",
   experience: "mais de 7 anos",
   phone: {
-    e164: "+5534988493077",
-    tel: "tel:+5534988493077",
-    display: "(34) 98849-3077",
+    e164: "+5534997240197",
+    tel: "tel:+5534997240197",
+    display: "(34) 99724-0197",
   },
   address: {
     street: "Avenida Belarmino Cotta Pacheco, 715",
